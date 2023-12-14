@@ -37,11 +37,11 @@ insert(connect(),fruit_list) # insert(f(x)의 결과, 내가 넣을 셀들)
 #     collection = database['fruits'] #f(x)의 결과
 #     return collection #f(x)의 결과
 
+# 출력 1
 # fruits=connect()
-
 # fruits.insert_many(fruit_list)
 
-
-
+# 출력 2
+# connect().insert_many(fruit_list)
 
 
