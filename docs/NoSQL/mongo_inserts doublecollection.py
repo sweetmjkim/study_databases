@@ -22,10 +22,8 @@ database = mongoClient["local"]
 collection = database['fruits']
 
 # insert 작업 진행
-collection.insert_one({"name": "키위",
-                       "color": "갈색",
-                       "origin": "뉴질랜드"})
-
-dict_fruits = {"name": "오렌지", "color": "주황", "origin": "미국"}
-collection.insert_one(dict_fruits)
+mixed_fruit = {"name": "오렌지",
+               "color": ["주황색", '갈색', '노란색'],
+               "origin": "미국"}
+result = collection.insert_one(mixed_fruit)
 pass
