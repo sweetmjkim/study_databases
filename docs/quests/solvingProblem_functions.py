@@ -36,7 +36,6 @@ quiz_list = [           # 삽입 리스트
     }
 ]
 
-
 def connect() :          # # mongodb에 있는 특정 collection에 연결하기 위한 함수
     from pymongo import MongoClient                 # mongdbcompass를 python 과 연동.
     mongoClient = MongoClient("mongodb://localhost:27017")  # mongdbcompass의 포트에 연결하는 변수 지정.
@@ -47,7 +46,6 @@ def connect() :          # # mongodb에 있는 특정 collection에 연결하기
 def insert() :          # collection에 내용 집어넣기 위한 함수
     collection.insert_many(quiz_list)
     
-# insert(connect(),quiz_list) 
 #-------------------------------------------------------------------------------#
 
 collection = connect()
@@ -62,7 +60,8 @@ def run():
         for j in range(len(quiz["choices"])):
             choice = quiz["choices"][j]
             print(str(j+1)+". "+choice)
-        user_answer =int(input("답을 입력해 주세요(번호로 입력): ")) 
+        user_answer =int(input("답을 입력해 주세요(번호로 입력): "))
+        print("----------" * 7)
         if user_answer == quiz["answer_number"]:
             final_score += quiz["score"]
         collection.update_many({'_id': quiz['_id']}, {"$set": {user_name: user_answer}}) 
