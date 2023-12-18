@@ -20,6 +20,23 @@ def insert(collection,todo_list) :
 insert(connect(),todo_list)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Input Your Name:  참여자1
 
 # ToDo List 중 하나 선택 하세요 !
