@@ -14,6 +14,7 @@
 from pymongo import MongoClient
 # mongodb에 접속 -> 자원에 대한 class
 mongoClient = MongoClient("mongodb://localhost:27017")
+# mongoClient = MongoClient("mongodb://192.168.0.51:27017")
 
 # database 연결
 database = mongoClient["local"]
