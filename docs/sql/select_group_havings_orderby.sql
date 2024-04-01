@@ -21,6 +21,27 @@ SELECT CustomerID, CustomerName
 FROM Customers
 WHERE CustomerID IN (20, 37, 41, 46, 51, 63, 65, 75, 87);
 
+2-1. 같은 결과
+SELECT CustomerID, CustomerName
+FROM Customers
+WHERE CustomerID IN (SELECT CustomerID
+				FROM Orders
+				GROUP BY CustomerID
+				HAVING COUNT(CustomerID) >= 5
+				ORDER BY CustomerID ASC);
+
+2-2. 같은 결과
+SELECT SUB_ORDERS.CNT, SUB_ORDERS.CustomerID
+FROM (
+		SELECT COUNT(CustomerID) AS CNT, CustomerID
+		FROM Orders
+		GROUP BY CustomerID
+		HAVING COUNT(CustomerID) >= 5
+		ORDER BY CustomerID ASC
+) AS SUB_ORDERS
+;
+
+
 SELECT COUNT(EmployeeID) AS CNT, EmployeeID
 FROM Orders
 GROUP BY EmployeeID
