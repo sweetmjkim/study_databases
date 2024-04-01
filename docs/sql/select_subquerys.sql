@@ -21,6 +21,7 @@ WHERE CustomerID IN (SELECT CustomerID
 				GROUP BY CustomerID
 				HAVING COUNT(CustomerID) >= 5
 				ORDER BY CustomerID ASC);
+-- Number of Records: 72 
 
 SELECT EmployeeID, LastName
 FROM Employees
@@ -29,6 +30,7 @@ WHERE EmployeeID IN (SELECT EmployeeID
 				GROUP BY EmployeeID
 				HAVING COUNT(EmployeeID) >= 20)
                 ORDER BY COUNT(CustomerID) ASC;
+-- Number of Records: 9
 
 SELECT SupplierName, SupplierID
 FROM Suppliers
@@ -38,3 +40,47 @@ where SupplierID in	(select SupplierID
         group by SupplierID
         order by CNT ASC
         limit 2) as sub_query);
+
+
+-- 3번문제에 대한 답들
+SELECT SupplierID, CategoryID, COUNT(CategoryID) AS CNT
+FROM Products
+WHERE 1 = 1		-- 사용하지않을때 이렇게 작성
+GROUP BY CategoryID, SupplierID;
+
+-- SUPPLIER MAX 상위 2개
+SELECT Category_GROUP.SupplierID, COUNT(Category_GROUP.SupplierID) AS CNT
+FROM ( SELECT SupplierID, CategoryID, COUNT(CategoryID) AS CNT
+		FROM Products
+		WHERE 1 = 1
+		GROUP BY CategoryID, SupplierID
+		) AS Category_GROUP
+WHERE 1 = 1
+GROUP BY Category_GROUP.SupplierID
+
+-- SUPPLIERID
+SELECT Category_GROUP.SupplierID, COUNT(Category_GROUP.SupplierID) AS CNT
+FROM ( SELECT SupplierID, CategoryID, COUNT(CategoryID) CNT
+	FROM Products
+	WHERE 1 = 1
+	GROUP BY SupplierID, CategoryID
+	) AS Category_GROUP
+WHERE 1 = 1
+GROUP BY Category_GROUP.SupplierID
+ORDER BY COUNT(Category_GROUP.SupplierID) DESC
+LIMIT 0, 2 ;
+
+SELECT *
+FROM Suppliers
+WHERE SupplierID = (
+		SELECT Category_GROUP.SupplierID
+		FROM ( SELECT SupplierID, CategoryID, COUNT(CategoryID) CNT
+		FROM Products
+		WHERE 1 = 1
+		GROUP BY SupplierID, CategoryID
+		) AS Category_GROUP
+		WHERE 1 = 1
+		GROUP BY Category_GROUP.SupplierID
+		ORDER BY COUNT(Category_GROUP.SupplierID) DESC
+		LIMIT 0, 2
+);
