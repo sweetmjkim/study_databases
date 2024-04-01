@@ -32,13 +32,9 @@ WHERE EmployeeID IN (SELECT EmployeeID
 
 SELECT SupplierName, SupplierID
 FROM Suppliers
-where SupplierID in
-	(select SupplierID
-    from (
-    	select SupplierID, count(SupplierID) as CNT
+where SupplierID in	(select SupplierID
+    from (select SupplierID, count(SupplierID) as CNT
         from Products
         group by SupplierID
         order by CNT ASC
-        limit 2
-        ) as sub_query
-    );
+        limit 2) as sub_query);
