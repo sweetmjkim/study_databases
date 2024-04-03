@@ -9,7 +9,7 @@ FROM Customers
 WHERE CustomerID NOT IN (
 select CustomerID FROM Orders
 group by CustomerID
-having count(OrderID) >=1)
+having count(OrderID) >1)
 ;
 
 SELECT Employees.EmployeeID, Employees.LastName, Employees.FirstName, Employees.BirthDate
